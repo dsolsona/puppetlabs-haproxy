@@ -8,14 +8,15 @@ class haproxy::params {
   case $osfamily {
     Redhat: {
       $global_options   = {
-        'log'     => "${::ipaddress} local0",
-        'chroot'  => '/var/lib/haproxy',
-        'pidfile' => '/var/run/haproxy.pid',
-        'maxconn' => '4000',
-        'user'    => 'haproxy',
-        'group'   => 'haproxy',
-        'daemon'  => '',
-        'stats'   => 'socket /var/lib/haproxy/stats'
+        'log'        => "${::ipaddress} local0",
+        'chroot'     => '/var/lib/haproxy',
+        'configfile' => '/etc/haproxy/haproxy.cfg',
+        'pidfile'    => '/var/run/haproxy.pid',
+        'maxconn'    => '4000',
+        'user'       => 'haproxy',
+        'group'      => 'haproxy',
+        'daemon'     => '',
+        'stats'      => 'socket /var/lib/haproxy/stats'
       }
       $defaults_options = {
         'log'     => 'global',
@@ -35,14 +36,15 @@ class haproxy::params {
     }
     Debian: {
       $global_options   = {
-        'log'     => "${::ipaddress} local0",
-        'chroot'  => '/var/lib/haproxy',
-        'pidfile' => '/var/run/haproxy.pid',
-        'maxconn' => '4000',
-        'user'    => 'haproxy',
-        'group'   => 'haproxy',
-        'daemon'  => '',
-        'stats'   => 'socket /var/lib/haproxy/stats'
+        'log'        => "${::ipaddress} local0",
+        'chroot'     => '/var/lib/haproxy',
+        'configfile' => '/etc/haproxy/haproxy.cfg',
+        'pidfile'    => '/var/run/haproxy.pid',
+        'maxconn'    => '4000',
+        'user'       => 'haproxy',
+        'group'      => 'haproxy',
+        'daemon'     => '',
+        'stats'      => 'socket /var/lib/haproxy/stats'
       }
       $defaults_options = {
         'log'     => 'global',
@@ -62,14 +64,43 @@ class haproxy::params {
     }
     Archlinux: {
       $global_options  = {
-        'log'     => "${::ipaddress} local0",
-        'chroot'  => '/var/lib/haproxy',
-        'pidfile' => '/var/run/haproxy.pid',
-        'maxconn' => '4000',
-        'user'    => 'haproxy',
-        'group'   => 'haproxy',
-        'daemon'  => '',
-        'stats'   => 'socket /var/lib/haproxy/stats'
+        'log'        => "${::ipaddress} local0",
+        'chroot'     => '/var/lib/haproxy',
+        'configfile' => '/etc/haproxy/haproxy.cfg',
+        'pidfile'    => '/var/run/haproxy.pid',
+        'maxconn'    => '4000',
+        'user'       => 'haproxy',
+        'group'      => 'haproxy',
+        'daemon'     => '',
+        'stats'      => 'socket /var/lib/haproxy/stats'
+      }
+      $defaults_options = {
+        'log'     => 'global',
+        'stats'   => 'enable',
+        'option'  => 'redispatch',
+        'retries' => '3',
+        'timeout' => [
+          'http-request 10s',
+          'queue 1m',
+          'connect 10s',
+          'client 1m',
+          'server 1m',
+          'check 10s',
+        ],
+        'maxconn' => '8000'
+      }
+    }
+    FreeBSD: {
+      $global_options  = {
+        'log'        => "${::ipaddress} local0",
+        'chroot'     => '/var/lib/haproxy',
+        'configfile' => '/usr/local/etc/haproxy.cfg',
+        'pidfile'    => '/var/run/haproxy.pid',
+        'maxconn'    => '4000',
+        'user'       => 'haproxy',
+        'group'      => 'haproxy',
+        'daemon'     => '',
+        'stats'      => 'socket /var/lib/haproxy/stats'
       }
       $defaults_options = {
         'log'     => 'global',
